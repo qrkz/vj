@@ -88,7 +88,8 @@ $(function(){
         }
     });
 
-    $("window").resize(function(){
+    $(window).resize(function(){
+        console.log("Resize!!");
         $draggable.draggabilly('setPosition',0,viewHeight*0.93);
     });
 });
