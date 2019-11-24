@@ -14,7 +14,7 @@ body{
 }
 #nav .handle{
     background: #222; color: #ddd;
-    height: 8vh;
+    height: 7vh;
     display: flex; flex-direction: row;
     align-items: center; justify-content: center;
     box-shadow: inset #cf0 0 2px;
@@ -24,6 +24,6 @@ body{
 }
 #content{
     background: #222;
-    padding-bottom: 8vh;
+    padding-bottom: 7vh;
     color: #ddd;
 }
