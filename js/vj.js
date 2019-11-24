@@ -13,8 +13,6 @@ $(function(){
     var $draggable = $('.draggable').draggabilly({
         axis: 'y', handle:'.handle'
     });
-    
-    $draggable.draggabilly('setPosition',0,viewHeight*0.93);
 
     var draggie = $('.draggable').data('draggabilly');
 
