@@ -1,10 +1,6 @@
 $(function(){
 
-    var viewHeight = $(window).height();
-    //var viewWidth = $(window).width();
-    var navHeight = viewHeight * 0.93;
     var dragFlag = 0;
-    navHeight = Math.round(navHeight);
 
     for( var i = 0; i<25; i++){
         $("#content").append("<br/>Content<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.");
@@ -18,16 +14,16 @@ $(function(){
 
     $draggable.on( 'dragEnd', function( event, pointer ) {
         var dragPosY = Math.round(draggie.position.y);
-        var navPos = Math.round(viewHeight*0.93);
-        var dragUL = Math.round( (viewHeight*0.93) - (navPos*0.8) );
-        var dragLL = Math.round( (viewHeight*0.93) - (navPos*0.2) );
+        var navPos = Math.round(0.93*$(window).height());
+        var dragUL = Math.round( (0.93*$(window).height()) - (navPos*0.8) );
+        var dragLL = Math.round( (0.93*$(window).height()) - (navPos*0.2) );
 
-        console.log("NP: "+viewHeight*0.93+"; DPY: "+dragPosY+"; DUL: "+dragUL+"; DLL: "+dragLL);
+        console.log("NP: "+0.93*$(window).height()+"; DPY: "+dragPosY+"; DUL: "+dragUL+"; DLL: "+dragLL);
 
         if(dragFlag === 0)
         {
             if(dragPosY>dragLL){
-                $draggable.draggabilly('setPosition',0,viewHeight*0.93);
+                $draggable.draggabilly('setPosition',0,0.93*$(window).height());
                 dragFlag = 0;
                 $("#nav").css({"box-shadow":"#cf0 0 0"});
                 console.log(dragPosY+"DPY > DLL"+dragLL+"; DF:"+dragFlag);
@@ -41,7 +37,7 @@ $(function(){
         else if(dragFlag === 1)
         {
             if(dragPosY>dragUL){
-                $draggable.draggabilly('setPosition',0,viewHeight*0.93);
+                $draggable.draggabilly('setPosition',0,0.93*$(window).height());
                 dragFlag = 0;
                 $("#nav").css({"box-shadow":"#cf0 0 0"});
                 console.log(dragPosY+"DPY > DLL"+dragLL+"; DF:"+dragFlag);
@@ -56,11 +52,11 @@ $(function(){
 
     $draggable.on( 'dragMove', function( event, pointer ) {
         var dragPosY = Math.round(draggie.position.y);
-        var navPos = Math.round(viewHeight*0.93);
-        var dragUL = Math.round( (viewHeight*0.93) - (navPos*0.8) );
-        var dragLL = Math.round( (viewHeight*0.93) - (navPos*0.2) );
+        var navPos = Math.round(0.93*$(window).height());
+        var dragUL = Math.round( (0.93*$(window).height()) - (navPos*0.8) );
+        var dragLL = Math.round( (0.93*$(window).height()) - (navPos*0.2) );
 
-        console.log("NP: "+viewHeight*0.93+"; DPY: "+dragPosY+"; DUL: "+dragUL+"; DLL: "+dragLL);
+        console.log("NP: "+0.93*$(window).height()+"; DPY: "+dragPosY+"; DUL: "+dragUL+"; DLL: "+dragLL);
 
         if(dragFlag === 0)
         {
@@ -85,9 +81,13 @@ $(function(){
             }
         }
     });
+/*
+    window.addEventListener('resize', () => {
+        $draggable.draggabilly('setPosition',0,0.93*$(window).height());
+    });*/
 
     $(window).resize(function(){
         console.log("Resize!!");
-        $draggable.draggabilly('setPosition',0,viewHeight*0.93);
+        $draggable.draggabilly('setPosition',0,0.93*$(window).height());
     });
 });
