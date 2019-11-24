@@ -1,6 +1,5 @@
 $(function(){
 
-
     var viewHeight = $(window).height();
     //var viewWidth = $(window).width();
     var navHeight = viewHeight * 0.93;
@@ -10,11 +9,13 @@ $(function(){
     for( var i = 0; i<25; i++){
         $("#content").append("<br/>Content<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.");
     }
-
+    
     var $draggable = $('.draggable').draggabilly({
         axis: 'y', handle:'.handle'
     });
     
+    $draggable.draggabilly('setPosition',0,viewHeight*0.93);
+
     var draggie = $('.draggable').data('draggabilly');
 
     $draggable.on( 'dragEnd', function( event, pointer ) {
@@ -87,4 +88,7 @@ $(function(){
         }
     });
 
+    $("window").resize(function(){
+        $draggable.draggabilly('setPosition',0,viewHeight*0.93);
+    });
 });
