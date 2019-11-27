@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>BotNav</title>
 
+    <script src="../js/jquery-3.4.1.min.js"></script>
+    <script src="../js/draggabilly-2.2.0.min.js"></script>
+
     <style>
         *{box-sizing: border-box;}
         html,body{margin: 0; padding:0}
@@ -19,20 +22,86 @@
             padding-bottom: 60px;
         }
         #footer{
-            background: #222;color: #ddd;
+            background: #f00;color: #ddd;
             height: 130vh;
-            display: flex; width: 100%;
+            display: flex; width: 100%; flex-direction: column;
             position: fixed;
             left: 0;
             bottom: calc(-130vh + 7vh);
 
         }
+        .handle{
+            background: #0ff;
+            color:#222;
+            display: flex; flex-direction: row;
+            align-items: center; justify-content: space-between;
+            height: 7vh;
+            width: 100%;
+        }
     </style>
+    <script>
+        $(function(){
+            var dragFlag = 0;
+
+            var navPos = Math.round(0.93*$(window).height());
+            var dragUL = Math.round( 0.2*navPos );
+            var dragLL = Math.round( 0.8*navPos );
+
+            console.log(dragFlag);
+
+            var $draggable = $('.draggable').draggabilly({
+                axis: 'y', handle:'.handle'
+            });
+
+            var draggie = $('.draggable').data('draggabilly');
+
+            $draggable.on( 'dragEnd', function( event, pointer ) {
+                var dragPosY = Math.round(draggie.position.y);
+
+                console.log("DPY: "+dragPosY+"; NP: "+navPos+"; dUL: "+dragUL+"; dLL: "+dragLL);
+                
+                if(dragFlag === 0)
+                {
+                    if(dragPosY>dragLL){
+                        $draggable.draggabilly('setPosition',0,0.93*$(window).height());
+                        dragFlag = 0;
+                        $("#nav").css({"box-shadow":"#cf0 0 0"});
+                        console.log(dragPosY+"DPY > DLL"+dragLL+"; DF:"+dragFlag);
+                    }
+                    if(dragPosY<dragLL){
+                        $draggable.draggabilly('setPosition',0,0);
+                        dragFlag = 1;
+                        console.log(dragPosY+"DPY < DLL"+dragLL+"; DF:"+dragFlag);
+                    }
+                }
+                else if(dragFlag === 1)
+                {
+                    if(dragPosY>dragUL){
+                        $draggable.draggabilly('setPosition',0,0.93*$(window).height());
+                        dragFlag = 0;
+                        $("#nav").css({"box-shadow":"#cf0 0 0"});
+                        console.log(dragPosY+"DPY > DLL"+dragLL+"; DF:"+dragFlag);
+                    }
+                    if(dragPosY<dragUL){
+                        $draggable.draggabilly('setPosition',0,0);
+                        dragFlag = 1;
+                        console.log(dragPosY+"DPY < DLL"+dragLL+"; DF:"+dragFlag);
+                    }
+                }
+
+            });
+        });
+    </script>
 
 </head>
 <body>
-    <footer id="footer">
-        Footer
+    <footer id="footer" class="draggable">
+        <div class="handle">
+            <span>Handle1</span>
+            <span>Handle2</span>
+            <span>Handle3</span>
+        </div>
+        <div class="footContent">Foot Content</div>
     </footer>
     <div id="content">
         <div>Content Top</div>
