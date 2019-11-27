@@ -54,8 +54,8 @@
             var draggie = $('.draggable').data('draggabilly');
 
             $draggable.on( 'dragEnd', function( event, pointer ) {
-
-                var navPos = Math.round(0.93*$(window).innerHeight());
+                var oneVH = window.innerHeight * 0.01;
+                var navPos = 93 * oneVH;
                 var dragUL = Math.round( 0.2*navPos );
                 var dragLL = Math.round( 0.8*navPos );
                 var dragPosY = Math.round(draggie.position.y);
