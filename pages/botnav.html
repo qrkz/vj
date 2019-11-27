@@ -53,8 +53,12 @@
 
             var draggie = $('.draggable').data('draggabilly');
 
+            window.addEventListener('resize', () => {
+                // We execute the same script as before
+                let oneVH = window.innerHeight * 0.01;
+            });
+            
             $draggable.on( 'dragEnd', function( event, pointer ) {
-                var oneVH = window.innerHeight * 0.01;
                 var navPos = 93 * oneVH;
                 var dragUL = Math.round( 0.2*navPos );
                 var dragLL = Math.round( 0.8*navPos );
