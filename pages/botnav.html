@@ -39,14 +39,11 @@
             width: 100%;
             box-shadow: inset #cf0 0 3px;
         }
+
     </style>
     <script>
         $(function(){
             var dragFlag = 0;
-
-            var navPos = Math.round(0.93*$(window).height());
-            var dragUL = Math.round( 0.2*navPos );
-            var dragLL = Math.round( 0.8*navPos );
 
             console.log(dragFlag);
 
@@ -57,6 +54,10 @@
             var draggie = $('.draggable').data('draggabilly');
 
             $draggable.on( 'dragEnd', function( event, pointer ) {
+
+                var navPos = Math.round(0.93*$(window).innerHeight());
+                var dragUL = Math.round( 0.2*navPos );
+                var dragLL = Math.round( 0.8*navPos );
                 var dragPosY = Math.round(draggie.position.y);
 
                 console.log("DPY: "+dragPosY+"; NP: "+navPos+"; dUL: "+dragUL+"; dLL: "+dragLL);
