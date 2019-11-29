@@ -57,8 +57,8 @@
             var dragFlag = 0;
             var navH = Math.round( $("#handle").outerHeight() );
             var navPos = vpH - navH;
-            var dragLL = Math.round(vpH * 0.8);
-            var dragUL = Math.round(vpH * 0.2);
+            var dragLL = Math.round(navPos * 0.8);
+            var dragUL = Math.round(navPos * 0.2);
             var cPos = Math.round( $("html").offset().top );
 
             var $draggable = $('#footer').draggabilly({
@@ -71,7 +71,9 @@
                 navH = Math.round( $("#handle").outerHeight() );
                 navPos = vpH - navH;
                 $draggable.draggabilly('setPosition', 0, navPos);
-                var cPos = Math.round( $("html").offset().top );
+                cPos = Math.round( $("html").offset().top );
+                dragLL = Math.round(vpH * 0.8);
+                dragUL = Math.round(vpH * 0.2);
             });
 
             $draggable.on('dragEnd', function (event, pointer) {
@@ -83,7 +85,7 @@
                         dragFlag = 0;
                     }
                     if (dragPosY < dragLL) {
-                        $draggable.draggabilly('setPosition', 0, navPos*0.75);
+                        $draggable.draggabilly('setPosition', 0, navPos*0.25);
                         dragFlag = 1;
                     }
                 } else if (dragFlag === 1) {
@@ -92,7 +94,7 @@
                         dragFlag = 0;
                     }
                     if (dragPosY < dragUL) {
-                        $draggable.draggabilly('setPosition', 0, navPos*0.75);
+                        $draggable.draggabilly('setPosition', 0, navPos*0.25);
                         dragFlag = 1;
                     }
                 }
