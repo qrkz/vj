@@ -71,6 +71,7 @@
                 navH = Math.round( $("#handle").outerHeight() );
                 navPos = vpH - navH;
                 $draggable.draggabilly('setPosition', 0, navPos);
+                var cPos = Math.round( $("html").offset().top );
             });
 
             $draggable.on('dragEnd', function (event, pointer) {
