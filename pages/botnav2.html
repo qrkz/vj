@@ -59,7 +59,7 @@
             var navPos = vpH - navH;
             var dragLL = Math.round(vpH * 0.8);
             var dragUL = Math.round(vpH * 0.2);
-            var cPos = Math.round( $("#content").offset().top );
+            var cPos = Math.round( $("html").offset().top );
 
             var $draggable = $('#footer').draggabilly({
                 axis: 'y', handle: '#handle'
