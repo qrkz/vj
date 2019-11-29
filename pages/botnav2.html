@@ -83,7 +83,7 @@
                         dragFlag = 0;
                     }
                     if (dragPosY < dragLL) {
-                        $draggable.draggabilly('setPosition', 0, 0);
+                        $draggable.draggabilly('setPosition', 0, navPos*0.75);
                         dragFlag = 1;
                     }
                 } else if (dragFlag === 1) {
@@ -92,7 +92,7 @@
                         dragFlag = 0;
                     }
                     if (dragPosY < dragUL) {
-                        $draggable.draggabilly('setPosition', 0, 0);
+                        $draggable.draggabilly('setPosition', 0, navPos*0.75);
                         dragFlag = 1;
                     }
                 }
@@ -126,7 +126,6 @@
                     }
                 }
             });
-
 
         });
     </script>
