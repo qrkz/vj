@@ -1,93 +1,75 @@
-$(function(){
-
+$(function () {
+    var vpH = Math.round( window.innerHeight );
     var dragFlag = 0;
+    var navH = Math.round( $("#handle").outerHeight() );
+    var navPos = vpH - navH;
+    var dragLL = Math.round(vpH * 0.8);
+    var dragUL = Math.round(vpH * 0.2);
 
-    for( var i = 0; i<25; i++){
-        $("#content").append("<br/>Content<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.<br/>.");
-    }
-    
-    var $draggable = $('.draggable').draggabilly({
-        axis: 'y', handle:'.handle'
+    var $draggable = $('#footer').draggabilly({
+        axis: 'y', handle: '#handle'
+    });
+    var draggie = $('#footer').data('draggabilly');
+
+    $(window).on('resize', function(){
+        vpH = Math.round( window.innerHeight );
+        navH = Math.round( $("#handle").outerHeight() );
+        navPos = vpH - navH;
+        $draggable.draggabilly('setPosition', 0, navPos);
     });
 
-    var draggie = $('.draggable').data('draggabilly');
-
-    $draggable.on( 'dragEnd', function( event, pointer ) {
+    $draggable.on('dragEnd', function (event, pointer) {
         var dragPosY = Math.round(draggie.position.y);
-        var navPos = Math.round(0.93*$(window).height());
-        var dragUL = Math.round( (0.93*$(window).height()) - (navPos*0.8) );
-        var dragLL = Math.round( (0.93*$(window).height()) - (navPos*0.2) );
 
-        console.log("NP: "+0.93*$(window).height()+"; DPY: "+dragPosY+"; DUL: "+dragUL+"; DLL: "+dragLL);
-
-        if(dragFlag === 0)
-        {
-            if(dragPosY>dragLL){
-                $draggable.draggabilly('setPosition',0,0.93*$(window).height());
+        if (dragFlag === 0) {
+            if (dragPosY > dragLL) {
+                $draggable.draggabilly('setPosition', 0, navPos);
                 dragFlag = 0;
-                $("#nav").css({"box-shadow":"#cf0 0 0"});
-                console.log(dragPosY+"DPY > DLL"+dragLL+"; DF:"+dragFlag);
             }
-            if(dragPosY<dragLL){
-                $draggable.draggabilly('setPosition',0,0);
+            if (dragPosY < dragLL) {
+                $draggable.draggabilly('setPosition', 0, 0);
                 dragFlag = 1;
-                console.log(dragPosY+"DPY < DLL"+dragLL+"; DF:"+dragFlag);
+            }
+        } else if (dragFlag === 1) {
+            if (dragPosY > dragUL) {
+                $draggable.draggabilly('setPosition', 0, navPos);
+                dragFlag = 0;
+            }
+            if (dragPosY < dragUL) {
+                $draggable.draggabilly('setPosition', 0, 0);
+                dragFlag = 1;
             }
         }
-        else if(dragFlag === 1)
-        {
-            if(dragPosY>dragUL){
-                $draggable.draggabilly('setPosition',0,0.93*$(window).height());
-                dragFlag = 0;
-                $("#nav").css({"box-shadow":"#cf0 0 0"});
-                console.log(dragPosY+"DPY > DLL"+dragLL+"; DF:"+dragFlag);
-            }
-            if(dragPosY<dragUL){
-                $draggable.draggabilly('setPosition',0,0);
-                dragFlag = 1;
-                console.log(dragPosY+"DPY < DLL"+dragLL+"; DF:"+dragFlag);
-            }
-        }
+
+        $("#handle").text(vpH+"|"+navH+"|"+dragUL+"|"+dragLL+"|"+dragFlag);
     });
 
     $draggable.on( 'dragMove', function( event, pointer ) {
         var dragPosY = Math.round(draggie.position.y);
-        var navPos = Math.round(0.93*$(window).height());
-        var dragUL = Math.round( (0.93*$(window).height()) - (navPos*0.8) );
-        var dragLL = Math.round( (0.93*$(window).height()) - (navPos*0.2) );
-
-        console.log("NP: "+0.93*$(window).height()+"; DPY: "+dragPosY+"; DUL: "+dragUL+"; DLL: "+dragLL);
 
         if(dragFlag === 0)
         {
             if(dragPosY>dragLL){
-                $("#nav .handle").css({"box-shadow":"inset #cf0 0 2px"});
-                $("#nav").css({"box-shadow":"#cf0 0 2px 15px"});
+                $("#footer #handle").css({"box-shadow":"inset #cf0 0 2px"});
+                $("#footer").css({"box-shadow":"#cf0 0 2px 15px"});
             }
             if(dragPosY<dragLL){
-                $("#nav .handle").css({"box-shadow":"inset #0ff 0 2px"});
-                $("#nav").css({"box-shadow":"#0ff 0 2px 35px"});
+                $("#footer #handle").css({"box-shadow":"inset #0ff 0 2px"});
+                $("#footer").css({"box-shadow":"#0ff 0 2px 35px"});
             }
         }
         else if(dragFlag === 1)
         {
             if(dragPosY>dragUL){
-                $("#nav .handle").css({"box-shadow":"inset #cf0 0 2px"});
-                $("#nav").css({"box-shadow":"#cf0 0 2px 15px"});
+                $("#footer #handle").css({"box-shadow":"inset #cf0 0 2px"});
+                $("#footer").css({"box-shadow":"#cf0 0 2px 15px"});
             }
             if(dragPosY<dragUL){
-                $("#nav .handle").css({"box-shadow":"inset #0ff 0 2px"});
-                $("#nav").css({"box-shadow":"#0ff 0 2px 45px"});
+                $("#footer #handle").css({"box-shadow":"inset #0ff 0 2px"});
+                $("#footer").css({"box-shadow":"#0ff 0 2px 45px"});
             }
         }
     });
-/*
-    window.addEventListener('resize', () => {
-        $draggable.draggabilly('setPosition',0,0.93*$(window).height());
-    });*/
 
-    $(window).resize(function(){
-        console.log("Resize!!");
-        $draggable.draggabilly('setPosition',0,0.93*$(window).height());
-    });
+
 });
