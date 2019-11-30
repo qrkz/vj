@@ -88,6 +88,8 @@
                 dragUL = Math.round(vpH * 0.55);
                 navPos = vpH - navH + wD;
                 $draggable.draggabilly('setPosition', 0, navPos);
+
+                $("#fixedResults").text(wH+"|"+vpH+"|"+wD+"|"+navH+"|"+dragUL+"|"+dragLL+"|"+dragFlag);
             });
 
             $draggable.on('dragEnd', function (event, pointer) {
@@ -113,7 +115,7 @@
                     }
                 }
 
-                $("#handle").text(wH+"|"+vpH+"|"+wD+"|"+navH+"|"+dragUL+"|"+dragLL+"|"+dragFlag);
+                $("#fixedResults").text(wH+"|"+vpH+"|"+wD+"|"+navH+"|"+dragUL+"|"+dragLL+"|"+dragFlag);
             });
 
             $draggable.on( 'dragMove', function( event, pointer ) {
