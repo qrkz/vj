@@ -68,7 +68,7 @@
         $(function () {
             var wH = Math.round( window.outerHeight );
             var vpH = Math.round( window.innerHeight );
-            var cPos = Math.round( $("#content").offset().top );
+            var cPos = Math.round( $("body").offset().top );
             var wD = wH - vpH - cPos;
             var dragFlag = 0;
             var navH = Math.round( $("#handle").outerHeight() );
@@ -84,7 +84,7 @@
             $(window).on('resize', function(){
                 wH = Math.round( window.outerHeight );
                 vpH = Math.round( window.innerHeight );
-                cPos = Math.round( $("#content").offset().top );
+                cPos = Math.round( $("body").offset().top );
                 wD = wH - vpH - cPos;
                 navH = Math.round( $("#handle").outerHeight() );
                 dragLL = Math.round(vpH * 0.8);
