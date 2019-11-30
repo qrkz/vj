@@ -81,6 +81,18 @@
             $("#footer").css("transform", "translateY "+navPos);
 
             $("#calculate").click( function(){
+
+                wH = Math.round( window.outerHeight );
+                vpH = Math.round( window.innerHeight );
+                htmlO = Math.round( $("html").offset().top );
+                bodyO = Math.round( $("body").offset().top );
+                contentO = Math.round( $("#content").offset().top );
+                cPos = htmlO + bodyO + contentO;
+                wD = wH - vpH - cPos;
+                dragFlag = 0;
+                navH = Math.round( $("#handle").outerHeight() );
+                navPos = vpH - navH + wD;
+
                 $("#results").html( 'windowHeight: '+wH+'<br/>'+
                                     'viewportHeight: '+vpH+"<br/>"+
                                     'contentPosition: '+htmlO+"<br/>"+
