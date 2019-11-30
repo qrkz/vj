@@ -55,6 +55,13 @@
             overflow-y: scroll;
             background: #111;color:#ddd;
         }
+        #fixedResults{
+            position: fixed; top: 50vh; left:0;
+            background: #f00; color: black;
+            height: 2rem; width: 100%;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+        }
     </style>
     <script>
         $(function () {
@@ -152,6 +159,7 @@
         <div>Content Top</div>
         <div>Content Bottom</div>
     </div>
+    <div id="fixedResults">Results</div>
 </body>
 
 </html>
