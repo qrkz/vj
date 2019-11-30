@@ -62,6 +62,7 @@
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
         }
+        .noScroll{overflow: hidden;}
     </style>
     <script>
         $(function () {
@@ -101,19 +102,27 @@
                     if (dragPosY > dragLL) {
                         $draggable.draggabilly('setPosition', 0, navPos);
                         dragFlag = 0;
+                        $("html").toggleClass("noScroll");
+                        $("body").toggleClass("noScroll");
                     }
                     if (dragPosY < dragLL) {
                         $draggable.draggabilly('setPosition', 0, navPos*0.25);
                         dragFlag = 1;
+                        $("html").toggleClass("noScroll");
+                        $("body").toggleClass("noScroll");
                     }
                 } else if (dragFlag === 1) {
                     if (dragPosY > dragUL) {
                         $draggable.draggabilly('setPosition', 0, navPos);
                         dragFlag = 0;
+                        $("html").toggleClass("noScroll");
+                        $("body").toggleClass("noScroll");
                     }
                     if (dragPosY < dragUL) {
                         $draggable.draggabilly('setPosition', 0, navPos*0.25);
                         dragFlag = 1;
+                        $("html").toggleClass("noScroll");
+                        $("body").toggleClass("noScroll");
                     }
                 }
 
