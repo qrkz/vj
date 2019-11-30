@@ -50,16 +50,22 @@
             width: 100%;
             box-shadow: inset #cf0 0 3px;
         }
+        #footContent{
+            height: 68vh;max-height: 68vh;
+            overflow-y: scroll;
+            background: #111;color:#ddd;
+        }
     </style>
     <script>
         $(function () {
             var vpH = Math.round( window.innerHeight );
             var dragFlag = 0;
             var navH = Math.round( $("#handle").outerHeight() );
-            var navPos = vpH - navH;
+            var wD = wH - vpH;
+            var navPos = vpH - navH + wD;
             var dragLL = Math.round(navPos * 0.8);
-            var dragUL = Math.round(navPos * 0.2);
-            var cPos = Math.round( $("html").offset().top );
+            var dragUL = Math.round(navPos * 0.55);
+            var wH = Math.round( window.outerHeight );
 
             var $draggable = $('#footer').draggabilly({
                 axis: 'y', handle: '#handle'
@@ -68,12 +74,14 @@
 
             $(window).on('resize', function(){
                 vpH = Math.round( window.innerHeight );
+                wH = Math.round( window.outerHeight );
+                wD = wH - vpH;
                 navH = Math.round( $("#handle").outerHeight() );
-                navPos = vpH - navH;
+                navPos = vpH - navH + wD;
                 $draggable.draggabilly('setPosition', 0, navPos);
                 cPos = Math.round( $("html").offset().top );
                 dragLL = Math.round(vpH * 0.8);
-                dragUL = Math.round(vpH * 0.2);
+                dragUL = Math.round(vpH * 0.55);
             });
 
             $draggable.on('dragEnd', function (event, pointer) {
