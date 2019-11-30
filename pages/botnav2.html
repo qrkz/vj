@@ -58,14 +58,14 @@
     </style>
     <script>
         $(function () {
+            var wH = Math.round( window.outerHeight );
             var vpH = Math.round( window.innerHeight );
+            var wD = wH - vpH;
             var dragFlag = 0;
             var navH = Math.round( $("#handle").outerHeight() );
-            var wD = wH - vpH;
             var navPos = vpH - navH + wD;
             var dragLL = Math.round(navPos * 0.8);
             var dragUL = Math.round(navPos * 0.55);
-            var wH = Math.round( window.outerHeight );
 
             var $draggable = $('#footer').draggabilly({
                 axis: 'y', handle: '#handle'
@@ -73,15 +73,14 @@
             var draggie = $('#footer').data('draggabilly');
 
             $(window).on('resize', function(){
-                vpH = Math.round( window.innerHeight );
                 wH = Math.round( window.outerHeight );
+                vpH = Math.round( window.innerHeight );
                 wD = wH - vpH;
                 navH = Math.round( $("#handle").outerHeight() );
-                navPos = vpH - navH + wD;
-                $draggable.draggabilly('setPosition', 0, navPos);
-                cPos = Math.round( $("html").offset().top );
                 dragLL = Math.round(vpH * 0.8);
                 dragUL = Math.round(vpH * 0.55);
+                navPos = vpH - navH + wD;
+                $draggable.draggabilly('setPosition', 0, navPos);
             });
 
             $draggable.on('dragEnd', function (event, pointer) {
@@ -107,7 +106,7 @@
                     }
                 }
 
-                $("#handle").text(vpH+"|"+navH+"|"+dragUL+"|"+dragLL+"|"+cPos+"|"+dragFlag);
+                $("#handle").text(wH+"|"+vpH+"|"+wD+"|"+navH+"|"+dragUL+"|"+dragLL+"|"+dragFlag);
             });
 
             $draggable.on( 'dragMove', function( event, pointer ) {
