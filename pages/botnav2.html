@@ -67,7 +67,8 @@
         $(function () {
             var wH = Math.round( window.outerHeight );
             var vpH = Math.round( window.innerHeight );
-            var wD = wH - vpH;
+            var cPos = Math.round( $("#content").offset().top );
+            var wD = wH - vpH - cPos;
             var dragFlag = 0;
             var navH = Math.round( $("#handle").outerHeight() );
             var navPos = vpH - navH + wD;
@@ -82,14 +83,15 @@
             $(window).on('resize', function(){
                 wH = Math.round( window.outerHeight );
                 vpH = Math.round( window.innerHeight );
-                wD = wH - vpH;
+                cPos = Math.round( $("#content").offset().top );
+                wD = wH - vpH - cPos;
                 navH = Math.round( $("#handle").outerHeight() );
                 dragLL = Math.round(vpH * 0.8);
                 dragUL = Math.round(vpH * 0.55);
                 navPos = vpH - navH + wD;
                 $draggable.draggabilly('setPosition', 0, navPos);
 
-                $("#fixedResults").text(wH+"|"+vpH+"|"+wD+"|"+navH+"|"+dragUL+"|"+dragLL+"|"+dragFlag);
+                $("#fixedResults").text(wH+"|"+vpH+"|"+cPos+"|"+wD+"|"+navH+"|"+dragUL+"|"+dragLL+"|"+dragFlag);
             });
 
             $draggable.on('dragEnd', function (event, pointer) {
@@ -115,7 +117,7 @@
                     }
                 }
 
-                $("#fixedResults").text(wH+"|"+vpH+"|"+wD+"|"+navH+"|"+dragUL+"|"+dragLL+"|"+dragFlag);
+                $("#fixedResults").text(wH+"|"+vpH+"|"+cPos+"|"+wD+"|"+navH+"|"+dragUL+"|"+dragLL+"|"+dragFlag);
             });
 
             $draggable.on( 'dragMove', function( event, pointer ) {
