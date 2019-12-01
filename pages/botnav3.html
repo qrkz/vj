@@ -86,6 +86,18 @@
             var draggieFooter = $('#vjFooter').data('draggabilly');
             $dragFooter.draggabilly('setPosition', 0, vjFPO);
 
+            
+            $(window).on('resize', function(){
+                wOH = Math.round( $(window).outerHeight() );
+                wIH = Math.round( $(window).innerHeight() );
+                vjFH = Math.round( $("#vjFootHandle").height() );
+                vjFPO = wIH - (wOH - wIH) - vjFH;
+                dragLL = Math.round( vjFPO * 0.80 );
+                dragUL = Math.round( vjFPO * 0.45 );
+                $("#vjFootHandle").html(vjFPO);
+                $dragFooter.draggabilly('setPosition', 0, vjFPO);
+            });
+
             $dragFooter.on('dragEnd', function (event, pointer) {
                 var dragPosY = Math.round(draggieFooter.position.y);
 
