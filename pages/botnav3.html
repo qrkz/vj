@@ -48,24 +48,89 @@
             background: rgba(0, 0, 0, 0.5); color: #ddd;
             backdrop-filter: blur(5px);
             display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
+            align-items: center; justify-content: flex-start;
             height: 100%; width: 100%;
+        }
+        .noScroll{
+            overflow: hidden;
         }
     </style>
     <script>
         $(function(){
+            var dragFlag = 0;
             var wIH = Math.round( $(window).innerHeight() );
-            var vjFP = Math.round( $("#vjPseudoFooter").offset().top );
             var vjFH = Math.round( $("#vjFootHandle").height() );
-            var vjFD = wIH - vjFH;
-            $("#vjFootHandle").html(vjFP+"|"+vjFD);
-            
+            var vjFPO = wIH - vjFH;
+            var dragLL = Math.round( vjFPO * 0.80 );
+            var dragUL = Math.round( vjFPO * 0.45 );
+            $("#vjFootHandle").html(vjFPO);
             var $dragFooter = $('#vjFooter').draggabilly({
                 axis: 'y', handle: '#vjFootHandle'
             });
             var draggieFooter = $('#vjFooter').data('draggabilly');
-            $dragFooter.draggabilly('setPosition', 0, vjFD);
+            $dragFooter.draggabilly('setPosition', 0, vjFPO);
 
+            $dragFooter.on('dragEnd', function (event, pointer) {
+                var dragPosY = Math.round(draggieFooter.position.y);
+
+                if (dragFlag === 0) {
+                    if (dragPosY > dragLL) {
+                        $dragFooter.draggabilly('setPosition', 0, vjFPO);
+                        dragFlag = 0;
+                        $("html").removeClass("noScroll");
+                        $("body").removeClass("noScroll");
+                    }
+                    if (dragPosY < dragLL) {
+                        $dragFooter.draggabilly('setPosition', 0, vjFPO*0.25);
+                        dragFlag = 1;
+                        $("html").addClass("noScroll");
+                        $("body").addClass("noScroll");
+                    }
+                } else if (dragFlag === 1) {
+                    $("#vjContent").click(function(){
+                        $dragFooter.draggabilly('setPosition', 0, vjFPO);
+                        $("html").removeClass("noScroll");
+                        $("body").removeClass("noScroll");
+                    });
+                    if (dragPosY > dragUL) {
+                        $dragFooter.draggabilly('setPosition', 0, vjFPO);
+                        dragFlag = 0;
+                        $("html").removeClass("noScroll");
+                        $("body").removeClass("noScroll");
+                    }
+                    if (dragPosY < dragUL) {
+                        $dragFooter.draggabilly('setPosition', 0, vjFPO*0.25);
+                        dragFlag = 1;
+                        $("html").addClass("noScroll");
+                        $("body").addClass("noScroll");
+                    }
+                }
+            });
+
+            $dragFooter.on('dragMove', function (event, pointer) {
+                var dragPosY = Math.round(draggieFooter.position.y);
+
+                if (dragFlag === 0) {
+                    if (dragPosY > dragLL) {
+                        $("#footer #handle").css({"box-shadow":"inset #cf0 0 2px"});
+                        $("#footer").css({"box-shadow":"#cf0 0 2px 15px"});
+                    }
+                    if (dragPosY < dragLL) {
+                        $("#footer #handle").css({"box-shadow":"inset #0ff 0 2px"});
+                        $("#footer").css({"box-shadow":"#0ff 0 2px 35px"});
+                    }
+                } else if (dragFlag === 1) {
+                    if (dragPosY > dragUL) {
+                        $("#footer #handle").css({"box-shadow":"inset #cf0 0 2px"});
+                        $("#footer").css({"box-shadow":"#cf0 0 2px 15px"});
+                    }
+                    if (dragPosY < dragUL) {
+                        $("#footer #handle").css({"box-shadow":"inset #0ff 0 2px"});
+                        $("#footer").css({"box-shadow":"#0ff 0 2px 45px"});
+                    }
+                }
+
+            });
         });
     </script>
 </head>
@@ -73,7 +138,6 @@
     <div id="vjContent">
         Content
     </div>
-    <div id="vjPseudoFooter">Pseudo Footer</div>
     <footer id="vjFooter">
         <div id="vjFootHandle">
             FootHandle
