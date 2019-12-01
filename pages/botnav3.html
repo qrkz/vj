@@ -58,7 +58,10 @@
             var wIH = Math.round( $(window).outerHeight() );
             var wD = wOH - wIH;
             var vjFP = Math.round( $("#vjPseudoFooter").offset().top );
-            $("#vjFootHandle").html(vjFP+"|"+wD);
+            var HO = Math.round( $("html").offset().top );
+            var BO = Math.round( $("body").offset().top );
+            var CO = Math.round( $("#vjContent").offset().top );
+            $("#vjFootHandle").html(vjFP+"|"+wD+"|"+HO+"|"+BO+"|"+CO);
             
             var $dragFooter = $('#vjFooter').draggabilly({
                 axis: 'y', handle: '#vjFootHandle'
