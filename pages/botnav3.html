@@ -54,19 +54,17 @@
     </style>
     <script>
         $(function(){
-            var wOH = Math.round( $(window).innerHeight() );
-            var wIH = Math.round( $(window).outerHeight() );
-            var wD = wOH - wIH;
+            var wIH = Math.round( $(window).innerHeight() );
             var vjFP = Math.round( $("#vjPseudoFooter").offset().top );
-            var vjFH = Math.round( $("#vjPseudoFooter").outerHeight() );
-            var vjFD = wIH - vjFH - vjFP;
+            var vjFH = Math.round( $("#vjFootHandle").height() );
+            var vjFD = wIH - vjFH;
             $("#vjFootHandle").html(vjFP+"|"+vjFD);
             
             var $dragFooter = $('#vjFooter').draggabilly({
                 axis: 'y', handle: '#vjFootHandle'
             });
             var draggieFooter = $('#vjFooter').data('draggabilly');
-            $dragFooter.draggabilly('setPosition', 0, vjFP);
+            $dragFooter.draggabilly('setPosition', 0, vjFD);
 
         });
     </script>
