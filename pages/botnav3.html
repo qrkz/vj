@@ -76,7 +76,7 @@
             var wOH = Math.round( $(window).outerHeight() );
             var wIH = Math.round( $(window).innerHeight() );
             var vjFH = Math.round( $("#vjFootHandle").height() );
-            var vjFPO = wIH - (wOH - wIH) - vjFH;
+            var vjFPO = wIH + (wOH - wIH) - vjFH;
             var dragLL = Math.round( vjFPO * 0.80 );
             var dragUL = Math.round( vjFPO * 0.45 );
             $("#vjFootHandle").html(vjFPO);
@@ -91,7 +91,7 @@
                 wOH = Math.round( $(window).outerHeight() );
                 wIH = Math.round( $(window).innerHeight() );
                 vjFH = Math.round( $("#vjFootHandle").height() );
-                vjFPO = wIH - (wOH - wIH) - vjFH;
+                vjFPO = wIH + (wOH - wIH) - vjFH;
                 dragLL = Math.round( vjFPO * 0.80 );
                 dragUL = Math.round( vjFPO * 0.45 );
                 $("#vjFootHandle").html(vjFPO);
