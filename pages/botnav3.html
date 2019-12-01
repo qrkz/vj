@@ -57,7 +57,7 @@
             var wOH = Math.round( $(window).innerHeight() );
             var wIH = Math,round( $(window).outerHeight() );
             var wD = wOH - wIH;
-            var vjFP = $("#vjPseudoFooter").offset().top;
+            var vjFP = Math.round( $("#vjPseudoFooter").offset().top );
             $("#vjFootHandle").html(vjFP+"|"+wD);
             
             var $dragFooter = $('#vjFooter').draggabilly({
