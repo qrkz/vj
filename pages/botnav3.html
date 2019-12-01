@@ -58,16 +58,14 @@
             var wIH = Math.round( $(window).outerHeight() );
             var wD = wOH - wIH;
             var vjFP = Math.round( $("#vjPseudoFooter").offset().top );
-            var HO = Math.round( $("html").offset().top );
-            var BO = Math.round( $("body").offset().top );
-            var CO = Math.round( $("#vjContent").offset().top );
-            $("#vjFootHandle").html(vjFP+"|"+wD+"|"+HO+"|"+BO+"|"+CO);
+            var vjFH = Math.round( $("#vjPseudoFooter").outerHeight() );
+            var vjFD = wIH - vjFH - vjFP;
+            $("#vjFootHandle").html(vjFP+"|"+vjFD);
             
             var $dragFooter = $('#vjFooter').draggabilly({
                 axis: 'y', handle: '#vjFootHandle'
             });
             var draggieFooter = $('#vjFooter').data('draggabilly');
-
             $dragFooter.draggabilly('setPosition', 0, vjFP);
 
         });
