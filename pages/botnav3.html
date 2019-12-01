@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>BotNav</title>
+    <title>BotNav3.0</title>
 
     <script src="../js/jquery-3.4.1.min.js"></script>
     <script src="../js/draggabilly-2.2.0.min.js"></script>
@@ -13,116 +13,72 @@
         *{
             box-sizing: border-box;
         }
-        html,body{
-            margin: 0;
-            padding: 0
+        html, body{
+            margin: 0; padding: 0;
         }
-        #content{
-            background: #222;
-            color: #ddd;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            height: 300vh;
-            width: 100%;
-            padding-bottom: 60px;
-        }
-        #footer{
-            background: #f00;
-            color: #ddd;
-            height: 130vh;
-            display: flex;
-            width: 100%;
-            flex-direction: column;
-            position: fixed;
-            left: 0;
-            bottom: calc(-123vh);
-        }
-        #handle{
-            background: #0ff;
-            color: #222;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            height: 7vh;
-            width: 100%;
-            box-shadow: inset #cf0 0 3px;
-        }
-        #footContent{
-            height: 68vh;max-height: 68vh;
-            overflow-y: scroll;
-            background: #111;color:#ddd;
-        }
-        #fixedResults{
-            position: fixed; top: 40vh; left:0;
-            background: #f00; color: black;
-            height: auto; width: 100%;
-            padding: 0.5rem 0;
+        #vjContent{
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
+            height: 300vh; width: 100%;
+            background: #222; color: #ddd;
         }
-        .noScroll{overflow: hidden;}
+        #vjFooter{
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: flex-start;
+            height: 130vh; width: 100%;
+            background: transparent; color: #222;
+            font-weight: 400;
+            position: fixed;
+        }
+        #vjPseudoFooter{
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            height: 7vh; min-height: 50px; width: 100%;
+            background: orangered; color: #222;
+            position: fixed; bottom: 0; left: 0;
+        }
+        #vjFootHandle{
+            height: 7vh; min-height: 50px; width: 100%;
+            background: rgba(204, 255, 0, 0.7); color: #222;
+            backdrop-filter: blur(5px);
+            display: flex; flex-direction: row;
+            align-items: center; justify-content: center;
+        }
+        #vjFootContent{
+            background: rgba(0, 0, 0, 0.5); color: #ddd;
+            backdrop-filter: blur(5px);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            height: 100%; width: 100%;
+        }
     </style>
     <script>
-        $(function () {
-            var wH = Math.round( window.outerHeight );
-            var vpH = Math.round( window.innerHeight );
-            var htmlO = Math.round( $("html").offset().top );
-            var bodyO = Math.round( $("body").offset().top );
-            var contentO = Math.round( $("#content").offset().top );
-            var cPos = htmlO + bodyO + contentO;
-            var wD = wH - vpH - cPos;
-            var dragFlag = 0;
-            var navH = Math.round( $("#handle").outerHeight() );
-            var navPos = vpH - navH + wD;
+        $(function(){
+            var vjFP = $("#vjPseudoFooter").offset().top;
+            $("#vjFootHandle").html(vjFP);
+            
+            var $dragFooter = $('#vjFooter').draggabilly({
+                axis: 'y', handle: '#vjFootHandle'
+            });
+            var draggieFooter = $('#vjFooter').data('draggabilly');
 
-            $("#footer").css("transform", "translateY "+navPos);
+            $dragFooter.draggabilly('setPosition', 0, vjFP);
 
-            $("#calculate").click( function(){
-
-                wH = Math.round( window.outerHeight );
-                vpH = Math.round( window.innerHeight );
-                htmlO = Math.round( $("html").offset().top );
-                bodyO = Math.round( $("body").offset().top );
-                contentO = Math.round( $("#content").offset().top );
-                cPos = htmlO + bodyO + contentO;
-                wD = wH - vpH - cPos;
-                dragFlag = 0;
-                navH = Math.round( $("#handle").outerHeight() );
-                navPos = vpH - navH + wD;
-
-                $("#results").html( 'windowHeight: '+wH+'<br/>'+
-                                    'viewportHeight: '+vpH+"<br/>"+
-                                    'contentPosition: '+htmlO+"<br/>"+
-                                    'contentPosition: '+bodyO+"<br/>"+
-                                    'contentPosition: '+contentO+"<br/>"+
-                                    'contentPosition: '+cPos+"<br/>"+
-                                    'windowDifference: '+wD+"<br/>"+
-                                    'navHeight: '+navH+"<br/>"+
-                                    'navPosition: '+navPos);
-            })
         });
     </script>
-
 </head>
-
 <body>
-    <footer id="footer" class="draggable">
-        <div id="handle">
-            Handle
+    <div id="vjContent">
+        Content
+    </div>
+    <div id="vjPseudoFooter">Pseudo Footer</div>
+    <footer id="vjFooter">
+        <div id="vjFootHandle">
+            FootHandle
         </div>
-        <div id="footContent">Foot Content</div>
+        <div id="vjFootContent">
+            FootContent
+        </div>
     </footer>
-    <div id="content">
-        <div>Content Top</div>
-        <div>Content Bottom</div>
-    </div>
-    <div id="fixedResults">
-        <div id="results">Results</div>
-        <a href="#" id="calculate">Calculate</a>
-    </div>
 </body>
-
 </html>
