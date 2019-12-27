@@ -17,9 +17,12 @@
             margin: 0; padding: 0;
         }
         #vjContent{
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            height: 300vh; width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 300vh;
+            width: 100%;
             background: #222; color: #ddd;
         }
         #vjFooter{
@@ -56,6 +59,8 @@
         }
         #vjFootHandle{
             box-shadow: inset #cf0 0 2px;
+            user-select: none;
+            padding: 0; margin: 0;
         }
         .vjOnBottom{
             box-shadow: #0ff 0 -1px 20px;
@@ -69,6 +74,41 @@
         .vjOnTop #vjFootHandle{
             box-shadow: inset #0ff 0 2px;
         }
+        #vjFootPanelContainer{
+            height: 75vh; width: 100%;
+            background:transparent; color:#ddd;
+            z-index:100;
+            display: flex; flex-direction: row;
+            align-items: flex-start; justify-content: flex-start;
+        }
+        .vjFootPanel{
+            height: 100%; width: 100vw;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            z-index: 300;
+            left: 100vh;
+            position: static;
+        }
+        #vjFootHandle button{
+            padding: 0;
+            border: none;
+            background: none;
+            height: 100%;
+            color: #cf0;
+            font-size: 1.2rem;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            flex-grow: 1;
+        }
+        #vjFootHandle button:first-of-type, #vjFootHandle button:last-of-type{
+            width: 8vh; min-width: 60px;
+            flex-grow: 0;
+        }
+        #vjFootHandle button:hover{
+            background: #111; box-shadow: inset #cf0 0px 2px;
+        }
     </style>
     <script>
         $(function(){
@@ -79,12 +119,12 @@
             var vjFPO = wIH + (wOH - wIH) - vjFH;
             var dragLL = Math.round( vjFPO * 0.80 );
             var dragUL = Math.round( vjFPO * 0.45 );
-            $("#vjFootHandle").html(vjFPO);
+            //$("#vjFootHandle").html(vjFPO);
             var $dragFooter = $('#vjFooter').draggabilly({
                 axis: 'y', handle: '#vjFootHandle'
             });
             var draggieFooter = $('#vjFooter').data('draggabilly');
-            $dragFooter.draggabilly('setPosition', 0, vjFPO);
+            $dragFooter.draggabilly('setPosition', 0, vjFPO*0.25);
 
             
             $(window).on('resize', function(){
@@ -94,8 +134,12 @@
                 vjFPO = wIH + (wOH - wIH) - vjFH;
                 dragLL = Math.round( vjFPO * 0.80 );
                 dragUL = Math.round( vjFPO * 0.45 );
-                $("#vjFootHandle").html(vjFPO);
-                $dragFooter.draggabilly('setPosition', 0, vjFPO);
+                //$("#vjFootHandle").html(vjFPO);
+                if(dragFlag === 0){
+                    $dragFooter.draggabilly('setPosition', 0, vjFPO);
+                } else if(dragFlag === 1){
+                    $dragFooter.draggabilly('setPosition', 0, vjFPO*0.25);
+                }
             });
 
             $dragFooter.on('dragEnd', function (event, pointer) {
@@ -103,41 +147,17 @@
 
                 if (dragFlag === 0) {
                     if (dragPosY > dragLL) {
-                        $dragFooter.draggabilly('setPosition', 0, vjFPO);
-                        dragFlag = 0;
-                        $("html").removeClass("noScroll");
-                        $("body").removeClass("noScroll");
-                        $("#vjFooter").removeClass("vjOnBottom");
-                        $("#vjFooter").removeClass("vjOnTop");
+                        closeFootNav();
                     }
                     if (dragPosY < dragLL) {
-                        $dragFooter.draggabilly('setPosition', 0, vjFPO*0.25);
-                        dragFlag = 1;
-                        $("html").addClass("noScroll");
-                        $("body").addClass("noScroll");
+                        openFootNav();
                     }
                 } else if (dragFlag === 1) {
-                    $("#vjContent").click(function(){
-                        $dragFooter.draggabilly('setPosition', 0, vjFPO);
-                        dragFlag = 0;
-                        $("html").removeClass("noScroll");
-                        $("body").removeClass("noScroll");
-                        $("#vjFooter").removeClass("vjOnBottom");
-                        $("#vjFooter").removeClass("vjOnTop");
-                    });
                     if (dragPosY > dragUL) {
-                        $dragFooter.draggabilly('setPosition', 0, vjFPO);
-                        dragFlag = 0;
-                        $("html").removeClass("noScroll");
-                        $("body").removeClass("noScroll");
-                        $("#vjFooter").removeClass("vjOnBottom");
-                        $("#vjFooter").removeClass("vjOnTop");
+                        closeFootNav();
                     }
                     if (dragPosY < dragUL) {
-                        $dragFooter.draggabilly('setPosition', 0, vjFPO*0.25);
-                        dragFlag = 1;
-                        $("html").addClass("noScroll");
-                        $("body").addClass("noScroll");
+                        openFootNav();
                     }
                 }
             });
@@ -166,6 +186,42 @@
                 }
 
             });
+            $("#vjContent").click(function(){
+                if (dragFlag === 1){
+                    closeFootNav();
+                }
+            });
+            $("#vjFootHandle button:first-of-type").click(function(){
+                if(dragFlag === 0){
+                    openFootNav();
+                } else if(dragFlag === 1){
+                    closeFootNav();
+                }
+            });
+            function openFootNav(){
+                $dragFooter.draggabilly('setPosition', 0, vjFPO*0.25);
+                dragFlag = 1;
+                $("#vjFootHandle button:first-of-type").html("O");
+                $("html").addClass("noScroll");
+                $("body").addClass("noScroll");
+                $("#vjFooter").removeClass("vjOnBottom");
+                $("#vjFooter").addClass("vjOnTop");
+            }
+            function closeFootNav(){
+                $dragFooter.draggabilly('setPosition', 0, vjFPO);
+                dragFlag = 0;
+                $("#vjFootHandle button:first-of-type").html("H");
+                $("html").removeClass("noScroll");
+                $("body").removeClass("noScroll");
+                $("#vjFooter").removeClass("vjOnBottom");
+                $("#vjFooter").removeClass("vjOnTop");
+            }
+            var vjPanels = 300;
+            $(".vjFootPanel").each(function(){
+                vjPanels+=1;
+                $(this).css("z-index",vjPanels);
+            });
+            console.log(dragFlag);
         });
     </script>
 </head>
@@ -175,10 +231,19 @@
     </div>
     <footer id="vjFooter">
         <div id="vjFootHandle">
-            FootHandle
+            <button>H</button>
+            <button>Nav Footer Handle</button>
+            <button>A</button>
         </div>
         <div id="vjFootContent">
-            FootContent
+            <div id="vjFootPanelContainer">
+                <div class="vjFootPanel" id="vjFootPanel01">Panel01</div>
+                <div class="vjFootPanel" id="vjFootPanel02">Panel02</div>
+                <div class="vjFootPanel" id="vjFootPanel03">Panel03</div>
+                <div class="vjFootPanel" id="vjFootPanel04">Panel04</div>
+                <div class="vjFootPanel" id="vjFootPanel05">Panel05</div>
+                <div class="vjFootPanel" id="vjFootPanel06">Panel06</div>    
+            </div>
         </div>
     </footer>
 </body>

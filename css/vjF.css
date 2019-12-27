@@ -1,0 +1,42 @@
+*{
+    box-sizing: border-box;
+}
+html, body{
+    margin:0; padding:0;
+}
+#vjBody{
+    background: #222;
+    color:#ddd; padding: 0; margin: 0; width:100%;height: 300vh;
+    display: flex; flex-direction: column;
+    align-content: center; justify-content: center;
+}
+#vjNav{
+    position: fixed; margin-top: 92vh;left: 0;
+    display: flex; flex-direction: column;
+    align-content: center; justify-content: flex-start;
+     height: 80vh;
+    background: #222;
+}
+#vjNav_bar{
+    display: flex; flex-direction: row;
+    align-content: center; justify-content: center;
+    width:100%; height: 8vh; min-height: 50px;
+    /*box-shadow: inset #444 0px 0.1rem;*/
+    background: #181818; color: #ddd;
+}
+#vjNav_bar > div{
+    display: flex; align-items: center; justify-content: center;
+    width: 8vh; min-width: 50px; height: 100%;
+}
+#vjNav_bar > div:nth-of-type(3){
+    flex-grow: 1;
+    background: rgba(255, 255, 255, 0.1);
+}
+#results{
+    display: flex; flex-direction: column;
+    position: fixed; top: 25vh; left:0;
+    width: 100%; padding: 10px;
+    background: #181818; color: #ddd;
+    font-size: 0.8em;
+}
+
