@@ -11,7 +11,7 @@ $(function(){
     let jqBO = $("body").offset();
     let jqBOT = jqBO.top;
     displayRes();
-    
+
     function displayRes(){
         $("#results").html( "jsDBCH = " + jsDBCH +
                             "<br/>jqDH = " + jqDH + 
@@ -28,6 +28,21 @@ $(function(){
                             
     }
     $(window).on('resize', function(){
+        jsDBCH = document.body.clientHeight;
+        jqDH = $(document).height();
+        jsSH = screen.height;
+        jsSAH = screen.availHeight;
+        jsWIH = window.innerHeight;
+        jsWOH = window.outerHeight;
+        jqWH = $(window).height();
+        jqWIH = $(window).innerHeight();
+        jqWOH = $(window).outerHeight();
+        jqBO = $("body").offset();
+        jqBOT = jqBO.top;
+
+        displayRes();
+    });
+    $("#results").click(function(){
         jsDBCH = document.body.clientHeight;
         jqDH = $(document).height();
         jsSH = screen.height;
