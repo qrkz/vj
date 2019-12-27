@@ -56,5 +56,6 @@ $(function(){
         jqBOT = jqBO.top;
 
         displayRes();
+        $("#results").css("color","red");
     });
 });
